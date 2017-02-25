@@ -28,12 +28,14 @@ class PortfolioAnalyzer():
         self._sort_portfolio_runs()
 
     def write_results_to_csv(self):
-        with open('results.csv', 'w') as csvfile:
-            fieldnames = ['start_year', 'end_year', 'stocks', 'rebalance_interval', 'end_balance']
+        csv_file_name = self.args.start_year + '_' + \
+            self.args.end_year + '_results_' + self.args.stock_symbols + '.csv'
+        with open(csv_file_name, 'w') as csvfile:
+            fieldnames = ['start_year', 'end_year', 'rebalance_interval', 'end_balance']
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
             writer.writeheader()
             for portfolio in self.portfolio_runs:
-                writer.writerow({'start_year': portfolio.start_year, 'end_year': portfolio.end_year, 'stocks': portfolio.stock_list,
+                writer.writerow({'start_year': portfolio.start_year, 'end_year': portfolio.end_year,
                                  'rebalance_interval': portfolio.rebalance_interval, 'end_balance': portfolio.cash_balance})
 
     def _sort_portfolio_runs(self):
