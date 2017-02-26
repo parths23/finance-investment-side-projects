@@ -28,7 +28,7 @@ class PortfolioAnalyzer():
         self._sort_portfolio_runs()
 
     def write_results_to_csv(self):
-        csv_file_name = self.args.start_year + '_' + \
+        csv_file_name = 'results/' + self.args.start_year + '_' + \
             self.args.end_year + '_results_' + self.args.stock_symbols + '.csv'
         with open(csv_file_name, 'w') as csvfile:
             fieldnames = ['start_year', 'end_year', 'rebalance_interval', 'end_balance']

@@ -1,2 +1,2 @@
 argparse
-yahoo_finance
+MySQL-python
