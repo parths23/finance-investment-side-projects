@@ -24,6 +24,6 @@ class DailyPrice():
     def _validate_and_insert(self):
         self._validate_and_transform()
         if self.valid:
-			query = self._create_sql_insert_query()
-			db.query(query)
-			print self.date
+            query = self._create_sql_insert_query()
+            db.query(query)
+            print self.date
