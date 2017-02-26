@@ -22,8 +22,8 @@ class PortfolioAnalyzer():
         self._run_portfolio(self.args, invest=False, rebalance=False)
         for interval in self.rebalancing_intervals:
             self.args.interval = interval
-            self._run_portfolio(self.args, invest=False, rebalance=False)
-            self._run_portfolio(self.args, invest=False, rebalance=True)
+            self._run_portfolio(self.args, invest=True, rebalance=False)
+            self._run_portfolio(self.args, invest=True, rebalance=True)
 
         self._sort_portfolio_runs()
 
