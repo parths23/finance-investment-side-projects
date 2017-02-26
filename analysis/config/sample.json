@@ -1,0 +1,7 @@
+{
+	"_comment": "Create a file that looks like this configuration file and name it db_credentials.json",
+	"host": "localhost",
+	"user": "user",
+	"db_name": "db_name",
+	"password": "password"
+}

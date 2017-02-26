@@ -1,5 +1,0 @@
-1) Allow for different combinations of stocks within the same portfolio analyzer - Won't do - New stock combinations should use a new portfolio analyzer instance.
-2) Run a portfolio with every stock individually within the same portfolio analyzer - Won't do - New stock combinations should use a new portfolio analyzer instance.
-3) Write unit tests
-4) Write integration tests
-5) Rename csv file using start and end year alongside stock list to create unique csv result files - done
