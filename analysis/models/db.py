@@ -18,8 +18,9 @@ class Db:
     def __init__(self):
         # Clean up the args coming in, should be a hash not an object
         config = self._fetch_database_config()
-        self.conn = MySQLdb.connect(
+        self.db = MySQLdb.connect(
             host=config['host'], user=config['user'], passwd=config['password'], db=config['db_name'])
+        self.conn = self.db.cursor()
 
     def _fetch_database_config(self):
         config_file_path = os.path.dirname(__file__) + '/../config/db_config.json'
@@ -29,15 +30,18 @@ class Db:
 
     def _drop_table(self, table_name):
         print """dropping table {0} """.format(table_name)
-        self.conn.query("""DROP TABLE IF EXISTS {0}""".format(table_name))
+        self.conn.execute("""DROP TABLE IF EXISTS {0};""".format(table_name))
 
     def create_table(self, table_name, column_definition, drop_table=False):
         if drop_table:
             self._drop_table(table_name)
-        self.conn.query(
-            """CREATE TABLE IF NOT EXISTS {0} {1} """.format(table_name, column_definition))
+        self.conn.execute(
+            """CREATE TABLE IF NOT EXISTS {0} {1}; """.format(table_name, column_definition))
 
     def query(self, query):
-        self.conn.query(query)
+        self.conn.execute(query)
+        results = self.conn.fetchall()
+        self.db.commit()
+        return results
 
 db = singleton(Db)()

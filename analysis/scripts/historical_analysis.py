@@ -1,6 +1,6 @@
 """python analysis/scripts/historical_analysis.py --stock_symbols spy,gld --start_year 2007 --end_year 2007 --monthly_contribution 2000."""
 import argparse
-from models.portfolio_analyzer import PortfolioAnalyzer
+from analysis.models.portfolio_analyzer import PortfolioAnalyzer
 
 
 def parse_commandline():

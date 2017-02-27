@@ -21,14 +21,15 @@ class PortfolioAnalyzer():
         self.args.interval = 0
         self._run_portfolio(self.args, invest=False, rebalance=False)
         for interval in self.rebalancing_intervals:
-            self.args.interval = interval
+            self.args.interval = 0
             self._run_portfolio(self.args, invest=True, rebalance=False)
+            self.args.interval = interval
             self._run_portfolio(self.args, invest=True, rebalance=True)
 
         self._sort_portfolio_runs()
 
     def write_results_to_csv(self):
-        csv_file_name = 'results/' + self.args.start_year + '_' + \
+        csv_file_name = 'analysis/results/' + self.args.start_year + '_' + \
             self.args.end_year + '_results_' + self.args.stock_symbols + '.csv'
         with open(csv_file_name, 'w') as csvfile:
             fieldnames = ['start_year', 'end_year', 'rebalance_interval', 'end_balance']

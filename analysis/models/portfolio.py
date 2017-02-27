@@ -1,9 +1,10 @@
-"""Portfolio Class."""
+from analysis.models.daily_price import DailyPrice
 
-from yahoo_finance import Share
+"""Portfolio Class."""
 
 
 class Portfolio():
+
     """Portfolio class that represents a single run of a portfolio strategy over a certain time period."""
 
     def __init__(self, rebalance_interval, start_year, end_year, monthly_contribution, stock_symbols):
@@ -24,19 +25,11 @@ class Portfolio():
             self._update_stock_price(stock_symbol)
 
     def _format_current_date(self):
-        return "{0}-{1}-25".format(self.current_year, self.current_month)
-
-    def _get_stock_price(self, stock_symbol):
-        try:
-            stock = Share(stock_symbol)
-            price = stock.get_historical(
-                self._format_current_date(), self._format_current_date())[0]['Open']
-            return float(price)
-        except:
-            return self.stocks[stock_symbol]['price']
+        return "{0}-{1}-28".format(self.current_year, self.current_month)
 
     def _update_stock_price(self, stock_symbol):
-        price = self._get_stock_price(stock_symbol)
+        price = DailyPrice.get_historical(
+            stock_symbol, self._format_current_date())
         if self.stocks.get(stock_symbol):
             self.stocks[stock_symbol]['price'] = price
             return price
@@ -86,11 +79,13 @@ class Portfolio():
                 self._transfer_cash()
                 if invest:
                     self._buy_stocks()
-                    if rebalance and self.current_month % self.rebalance_interval == 0:
-                        self._rebalance_portfolio()
+                    if rebalance:
+                        self._rebalance_portfolio_general_interval_strategy()
+
         self._sell_stocks()
 
-    def _rebalance_portfolio(self):
+    def _rebalance_portfolio_general_interval_strategy(self):
         """Method rebalances the portfolio to equal distribution based on a parameter time interval."""
-        self._sell_stocks()
-        self._buy_stocks()
+        if self.current_month % self.rebalance_interval == 0:
+            self._sell_stocks()
+            self._buy_stocks()

@@ -1,5 +1,5 @@
 from analysis.models.db import db
-from utils import _string_to_date
+from utils import _string_to_date, one_day_prior_date
 
 
 class DailyPrice():
@@ -17,9 +17,14 @@ class DailyPrice():
         self.valid = True
 
     def _create_sql_insert_query(self):
-        query = """INSERT INTO daily_prices (symbol,price,date_of_price) VALUES('{0}',{1},'{2}');""".format(
+        query = """INSERT INTO daily_prices (symbol,price,date) VALUES('{0}',{1},'{2}');""".format(
                 self.symbol, self.price, self.date)
         return query
+
+    @classmethod
+    def update(self, id_key, column, value):
+        query = """UPDATE daily_prices SET {0} = {1} WHERE id = {2}""".format(column, value, id_key)
+        db.query(query)
 
     def _validate_and_insert(self):
         self._validate_and_transform()
@@ -27,3 +32,21 @@ class DailyPrice():
             query = self._create_sql_insert_query()
             db.query(query)
             print self.date
+            print self.price
+
+    @classmethod
+    def get_historical(cls, stock_symbol, date, retry=True):
+        query = """SELECT price from daily_prices where date = '{0}' and symbol = '{1}';""".format(
+            date, stock_symbol)
+        prices = db.query(query)
+        if not len(prices) and retry:
+            new_date = one_day_prior_date(date)
+            price = cls.get_historical(stock_symbol, new_date)
+            return price
+        else:
+            return prices[0][0]
+
+    @classmethod
+    def fetch_all_for_symbol(cls, stock_symbol):
+        query = """SELECT * from daily_prices where symbol='{0}'""".format(stock_symbol)
+        return db.query(query)
