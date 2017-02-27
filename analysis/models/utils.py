@@ -22,13 +22,7 @@ def _string_to_date(date_string):
     raise ValueError('Unknown date format: {0}'.format(date_string))
 
 
-def one_day_prior_date(date_string):
+def prior_date(date_string, days=1):
     result = datetime.strptime(date_string, '%Y-%m-%d')
-    day = result - timedelta(days=1)
-    return day.strftime('%Y-%m-%d')
-
-
-def one_month_prior(date_string):
-    result = datetime.strptime(date_string, '%Y-%m-%d')
-    day = result - timedelta(days=30)
+    day = result - timedelta(days=days)
     return day.strftime('%Y-%m-%d')

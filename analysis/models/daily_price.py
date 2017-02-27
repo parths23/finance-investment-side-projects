@@ -1,5 +1,5 @@
 from analysis.models.db import db
-from utils import _string_to_date, one_day_prior_date
+from utils import _string_to_date, prior_date
 
 
 class DailyPrice():
@@ -40,7 +40,7 @@ class DailyPrice():
             date, stock_symbol)
         prices = db.query(query)
         if not len(prices) and retry:
-            new_date = one_day_prior_date(date)
+            new_date = prior_date(date, days=1)
             price = cls.get_historical(stock_symbol, new_date)
             return price
         else:

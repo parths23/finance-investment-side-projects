@@ -5,7 +5,7 @@ import csv
 from analysis.models.daily_price import DailyPrice
 from analysis.models.db import db
 from datetime import date, timedelta
-from analysis.models.utils import one_month_prior
+from analysis.models.utils import prior_date
 
 
 def parse_commandline():
@@ -36,7 +36,7 @@ def main():
             current_date = result[3]
             current_price = result[2]
             current_day = current_date.day
-            previous_month_date = one_month_prior(current_date.isoformat())
+            previous_month_date = prior_date(current_date.isoformat(), days=30)
             if current_date.year >= 2005:
                 print current_id
                 prior_month_price = DailyPrice.get_historical(symbol, previous_month_date)
