@@ -38,7 +38,6 @@ def main():
             current_day = current_date.day
             previous_month_date = prior_date(current_date.isoformat(), days=30)
             if current_date.year >= 2005:
-                print current_id
                 prior_month_price = DailyPrice.get_historical(symbol, previous_month_date)
                 percent_change = (current_price - prior_month_price) / prior_month_price * 100
                 DailyPrice.update(current_id, 'previous_month_performance', percent_change)

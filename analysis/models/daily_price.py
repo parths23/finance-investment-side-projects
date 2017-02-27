@@ -31,8 +31,6 @@ class DailyPrice():
         if self.valid:
             query = self._create_sql_insert_query()
             db.query(query)
-            print self.date
-            print self.price
 
     @classmethod
     def get_historical(cls, stock_symbol, date, retry=True):

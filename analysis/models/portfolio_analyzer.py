@@ -15,17 +15,19 @@ class PortfolioAnalyzer():
             args.interval, args.start_year, args.end_year, args.monthly_contribution, args.stock_symbols)
         portfolio.run(invest, rebalance)
         self.portfolio_runs.append(portfolio)
-        print portfolio.cash_balance
 
     def run_portfolio_models(self):
+        self.args.interval = 2
+        self._run_portfolio(self.args, invest=True, rebalance=False)
+        self.args.interval = 3
+        self._run_portfolio(self.args, invest=True, rebalance=True)
         self.args.interval = 0
         self._run_portfolio(self.args, invest=False, rebalance=False)
-        for interval in self.rebalancing_intervals:
-            self.args.interval = 0
-            self._run_portfolio(self.args, invest=True, rebalance=False)
-            self.args.interval = interval
-            self._run_portfolio(self.args, invest=True, rebalance=True)
-
+        self.args.interval = 1
+        original_stocks = self.args.stock_symbols
+        self.args.stock_symbols = 'spy'
+        self._run_portfolio(self.args, invest=True, rebalance=False)
+        self.args.stock_symbols = original_stocks
         self._sort_portfolio_runs()
 
     def write_results_to_csv(self):
