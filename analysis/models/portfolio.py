@@ -64,6 +64,8 @@ class Portfolio():
     def _transfer_cash(self):
         multiplicative_factor = (self.current_year - self.start_year) * 250
         amount_saved = self.initial_monthly_contribution + float(multiplicative_factor)
+        if amout_saved > 5000:
+            amount_saved = 5000
         self.cash_balance += amount_saved
 
     def _sell_stocks(self):
