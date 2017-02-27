@@ -23,7 +23,8 @@ class DailyPrice():
 
     @classmethod
     def update(self, id_key, column, value):
-        query = """UPDATE daily_prices SET {0} = {1} WHERE id = {2}""".format(column, value, id_key)
+        query = """UPDATE daily_prices SET {0} = {1} WHERE id = {2}""".format(
+            column, value, id_key)
         db.query(query)
 
     def _validate_and_insert(self):
@@ -48,3 +49,8 @@ class DailyPrice():
     def fetch_all_for_symbol(cls, stock_symbol):
         query = """SELECT * from daily_prices where symbol='{0}'""".format(stock_symbol)
         return db.query(query)
+
+    @classmethod
+    def create_table(cls):
+        db.create_table(
+            "daily_prices", "(id MEDIUMINT NOT NULL AUTO_INCREMENT PRIMARY KEY, symbol CHAR(20), price FLOAT(20), date DATE)", drop_table=True)

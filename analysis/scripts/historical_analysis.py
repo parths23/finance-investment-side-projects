@@ -21,7 +21,6 @@ def main():
     args = parse_commandline()
     portfolio_manager = PortfolioAnalyzer(args)
     portfolio_manager.run_portfolio_models()
-    portfolio_manager.write_results_to_csv()
 
 
 if __name__ == '__main__':

@@ -8,9 +8,8 @@ class Portfolio():
 
     """Portfolio class that represents a single run of a portfolio strategy over a certain time period."""
 
-    def __init__(self, rebalance_interval, start_year, end_year, monthly_contribution, stock_symbols):
+    def __init__(self, start_year, end_year, monthly_contribution, stock_symbols):
         self.cash_balance = 0.0
-        self.rebalance_interval = int(rebalance_interval)
         self.start_year = int(start_year)
         self.end_year = int(end_year)
         self.initial_monthly_contribution = float(monthly_contribution)
@@ -73,7 +72,6 @@ class Portfolio():
             self._sell_stock(stock_symbol)
 
     def _buy_tracked_stock(self, ratio=0.10):
-        print "buying tracked stock"
         stock_symbol_list = self.stocks.keys()
         for stock_symbol in stock_symbol_list:
             if stock_symbol != self.tracked_stock_symbol:
@@ -87,13 +85,9 @@ class Portfolio():
         prior_month_price = DailyPrice.get_historical(
             self.tracked_stock_symbol, previous_month_date)
         percent_change = (current_price - prior_month_price) / prior_month_price * 100
-        # make this -10 into a variable to run multiple models
-        # if percent_change < -1 and percent_change >= -5:
-        #     self._buy_tracked_stock(ratio=.05)
-        if percent_change < -5 and percent_change >= -10:
-            self._buy_tracked_stock(ratio=.03)
-        elif percent_change < -10:
-            self._buy_tracked_stock(ratio=.10)
+        if percent_change < -15:
+            print self._format_current_date()
+            self._buy_tracked_stock(ratio=.20)
 
     def run(self, invest, rebalance):
         """Method runs the portfolio from the January of start year to December of end year."""
@@ -106,17 +100,9 @@ class Portfolio():
                 self._transfer_cash()
                 if invest:
                     self._buy_stocks()
-                    # if rebalance:
-                    #     self._rebalance_portfolio_general_interval_strategy()
                 for day in range(1, 28):
                     self.current_day = day
                     if rebalance:
                         self._performance_based_rebalance()
 
         self._sell_stocks()
-
-    def _rebalance_portfolio_general_interval_strategy(self):
-        """Method rebalances the portfolio to equal distribution based on a parameter time interval."""
-        if self.current_month % self.rebalance_interval == 0:
-            self._sell_stocks()
-            self._buy_stocks()
