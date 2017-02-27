@@ -1,12 +1,32 @@
-To-do
-
+Must-do
 unit tests
 integration tests
 
 
 
+Technical Ideas
+Nightly scheduled task that pulls in updated csvs from quandl and runs a bunch of possible models, then gives advice for current day based on best model to put in orders for next business day.
 
-Done
+All model ideas below should be able to be fine tuned at the same time. And then automate running of all possible models.
+
+
+
+Model Ideas
+Pick different markers of S and P and Gold that allow you to go before 2005
+
+adjust ratio of monthly investment in gold vs s and p
+
+adjust rebalancing based on performance (one tier, multiple tiers, what ratios?)
+
+adjust two way investment (invest in gold from s and p?)
+
+adjust performance time periods (not only prior 30 days)
+
+
+
+
+
+
 
 
 
