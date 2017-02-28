@@ -1,0 +1,5 @@
+start_year,end_year,stock_symbols,invest,rebalance,performance_period,performance_threshold,rebalance_ratio,end_balance
+2007,2012,"spy,gld",True,False,0,0,0,259470.95541433926
+2007,2012,"spy,gld",True,True,25,-20.0,0.15,247662.71430259332
+2007,2012,spy,True,False,0,0,0,222395.31098822746
+2007,2012,"spy,gld",False,False,0,0,0,189000.0

@@ -12,15 +12,20 @@ All model ideas below should be able to be fine tuned at the same time. And then
 
 
 Model Ideas
-Pick different markers of S and P and Gold that allow you to go before 2005
+Personal investment project
 
-adjust ratio of monthly investment in gold vs s and p
+highest so far 30, -15, .20
+days try 25-35 (10 possibilities)
+rates try -10 to -20 (10 possibilities)
+percentage - try .15 to .25 (10 possibilities)
 
-adjust rebalancing based on performance (one tier, multiple tiers, what ratios?)
 
-adjust two way investment (invest in gold from s and p?)
+use adjusting ratios of monthly stock investment
+buy short and long term treasury bonds (buy some when stock market is at 30-60 day rallies, play with these intervals later) 
+buy gold based on performance metric (buy some when stock market is at 30-60 day rallies, play with these intervals later)
 
-adjust performance time periods (not only prior 30 days)
+Linear relationship between performance on one day and performance on the next day of S and P
+also impact of 2 same days in a row (up or down) on next day
 
 
 

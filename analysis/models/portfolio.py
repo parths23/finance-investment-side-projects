@@ -8,18 +8,23 @@ class Portfolio():
 
     """Portfolio class that represents a single run of a portfolio strategy over a certain time period."""
 
-    def __init__(self, start_year, end_year, monthly_contribution, stock_symbols):
+    def __init__(self, args, conditions):
+        self.performance_period = conditions['performance_period']
+        self.performance_threshold = conditions['performance_threshold']
+        self.rebalance_ratio = conditions['rebalance_ratio']
         self.cash_balance = 0.0
-        self.start_year = int(start_year)
-        self.end_year = int(end_year)
-        self.initial_monthly_contribution = float(monthly_contribution)
+        self.start_year = int(args.start_year)
+        self.end_year = int(args.end_year)
+        self.initial_monthly_contribution = float(args.monthly_contribution)
         self.current_month = 1
         self.current_day = 1
         self.current_year = self.start_year
         self.stocks = {}
-        self.stock_list = stock_symbols
+        self.stock_list = args.stock_symbols
         self.tracked_stock_symbol = 'spy'
-        self._initiate_stock_dict(stock_symbols)
+        self._initiate_stock_dict(args.stock_symbols)
+        self.invest = conditions['invest']
+        self.rebalance = conditions['rebalance']
 
     def _initiate_stock_dict(self, stock_symbols):
         stock_symbols = stock_symbols.strip().split(',')
@@ -64,7 +69,7 @@ class Portfolio():
     def _transfer_cash(self):
         multiplicative_factor = (self.current_year - self.start_year) * 250
         amount_saved = self.initial_monthly_contribution + float(multiplicative_factor)
-        if amout_saved > 5000:
+        if amount_saved > 5000:
             amount_saved = 5000
         self.cash_balance += amount_saved
 
@@ -83,15 +88,14 @@ class Portfolio():
 
     def _performance_based_rebalance(self):
         current_price = self._update_stock_price(self.tracked_stock_symbol)
-        previous_month_date = prior_date(self._format_current_date(), days=30)
+        previous_month_date = prior_date(self._format_current_date(), days=self.performance_period)
         prior_month_price = DailyPrice.get_historical(
             self.tracked_stock_symbol, previous_month_date)
         percent_change = (current_price - prior_month_price) / prior_month_price * 100
-        if percent_change < -15:
-            print self._format_current_date()
-            self._buy_tracked_stock(ratio=.20)
+        if percent_change < self.performance_threshold:
+            self._buy_tracked_stock(ratio=self.rebalance_ratio)
 
-    def run(self, invest, rebalance):
+    def run(self):
         """Method runs the portfolio from the January of start year to December of end year."""
         years = range(self.start_year, self.end_year + 1)
         for year in years:
@@ -100,11 +104,11 @@ class Portfolio():
                 self.current_month = month
                 self.current_day = 1
                 self._transfer_cash()
-                if invest:
+                if self.invest:
                     self._buy_stocks()
                 for day in range(1, 28):
                     self.current_day = day
-                    if rebalance:
+                    if self.rebalance:
                         self._performance_based_rebalance()
 
         self._sell_stocks()

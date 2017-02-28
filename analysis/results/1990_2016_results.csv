@@ -1,0 +1,16 @@
+start_year,end_year,stock_symbols,invest,rebalance,performance_period,performance_threshold,rebalance_ratio,end_balance
+1990,2016,"spy,gld",True,True,25,-20.0,0.25,4365539.771140755
+1990,2016,"spy,gld",True,True,25,-20.0,0.24,4363335.6367776
+1990,2016,"spy,gld",True,True,25,-20.0,0.23,4360641.2598160505
+1990,2016,"spy,gld",True,True,25,-20.0,0.22,4357392.2081287
+1990,2016,"spy,gld",True,True,25,-20.0,0.21,4353510.024668336
+1990,2016,"spy,gld",True,True,25,-20.0,0.2,4348898.327493881
+1990,2016,"spy,gld",True,True,25,-20.0,0.19,4343437.862772283
+1990,2016,"spy,gld",True,True,25,-20.0,0.18,4336980.256467517
+1990,2016,"spy,gld",True,True,25,-20.0,0.17,4329340.155013812
+1990,2016,"spy,gld",True,True,25,-20.0,0.16,4320285.379027625
+1990,2016,"spy,gld",True,True,25,-20.0,0.15,4309524.6351471795
+1990,2016,gld,True,False,0,0,0,3235535.5646988917
+1990,2016,"spy,gld",True,False,0,0,0,3177684.4670496564
+1990,2016,spy,True,False,0,0,0,3119833.369400421
+1990,2016,"spy,gld",False,False,0,0,0,1386000.0
