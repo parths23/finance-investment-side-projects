@@ -10,6 +10,7 @@ start_year,end_year,stock_symbols,invest,rebalance,performance_period,performanc
 1990,2016,"spy,gld",True,True,25,-20.0,0.17,4329340.155013812
 1990,2016,"spy,gld",True,True,25,-20.0,0.16,4320285.379027625
 1990,2016,"spy,gld",True,True,25,-20.0,0.15,4309524.6351471795
+1990,2016,"spy,gld",True,True,25,-19.0,0.15,4182531.148483049
 1990,2016,gld,True,False,0,0,0,3235535.5646988917
 1990,2016,"spy,gld",True,False,0,0,0,3177684.4670496564
 1990,2016,spy,True,False,0,0,0,3119833.369400421
